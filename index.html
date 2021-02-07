@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>PepMusic</title>
+</head>
+<body>
+    <div id="main-content">
+        <div id="sidebar">
+            <div id="navbar">
+                <div id="logo">
+                    <img src="https://img.icons8.com/color/30/000000/sound-cloud-.png"/>
+                    <span id="app-name"> Pep Music</span>
+                </div>
+                <ul id="navbar-list">
+                    <li class="navbar-items"><img src="https://img.icons8.com/color/20/000000/musical-notes.png"/>Music Library</li>
+                    <li class="navbar-items"><img src="https://img.icons8.com/color/20/000000/playlist.png"/>Playlists</li>
+                    <li class="navbar-items"><img src="https://img.icons8.com/color/20/000000/filled-like.png"/>Songs you like</li>
+                </ul>
+            </div>
+        </div>
+        <div id="music-content">
+            <div id="search-bar">
+                <img id="search-icon" src="https://img.icons8.com/pastel-glyph/24/000000/search--v2.png"/>
+                <input id="search-text" type="text" placeholder="Search music" />
+            </div>
+            <div id="library">
+                <table style="width:100%">
+                    <tr>
+                      <th>Song Name</th>
+                      <th>Artist</th>
+                      <th></th>
+                    </tr>
+                    <tr class="song">
+                      <td>Kya baat aa</td>
+                      <td>Karan Aujla</td>
+                      <td></td>
+                    </tr>
+                  </table>
+                  <audio id="playing-song" src="http://mymp3song.space/siteuploads/files/sfd93/46227/Khyaal%20Rakhya%20Kar%20-%20Neha%20Kakkar(MyMp3Song.space).mp3
+                  "></audio>
+                  <div id="audio-controller">
+                      <div id="control-buttons">
+                        <img src="https://img.icons8.com/metro/20/000000/previous.png"/>
+                        <img id="play-button" src="https://img.icons8.com/material-sharp/50/000000/play-button-circled--v1.png" onclick="playSong()"/>
+                        <img id="pause-button" class="not-active" src="https://img.icons8.com/ios-filled/50/000000/circled-pause.png" onclick="pauseSong()"/>
+                        <img src="https://img.icons8.com/metro/20/000000/next.png"/>
+                      </div>
+                      <div id="music-slider">
+                          <span id="current-time">00:00</span>
+                          <input type="range" min=0 max=100 value=0 id="time-slider">
+                          <span id="end-time">00:00</span>
+                      </div>
+                      <div id="volume">
+                        <img src="https://img.icons8.com/emoji/20/000000/speaker-low-volume.png"/>
+                        <input type="range" min="1" max="100" value="0" id="volume-slider">
+                        <img src="https://img.icons8.com/emoji/20/000000/speaker-high-volume.png"/>
+                      </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
