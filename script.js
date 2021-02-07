@@ -9,11 +9,11 @@ let currentMinutes = 0;
 let endMinutes = 0;
 let endSeconds = 0;
 let timeSlider = document.getElementById("time-slider");
+let volumeSlider = document.getElementById("volume-slider");
 
 let audioInterval;
 
 function calculateCurrentTime() {
-    console.log("hello");
     currentMinutes = Math.floor(playingSong.currentTime / 60);
     currentSeconds = Math.ceil(playingSong.currentTime - (currentMinutes * 60));
     if(currentSeconds === endSeconds && currentMinutes === endMinutes) {
@@ -30,6 +30,10 @@ function calculateCurrentTime() {
 timeSlider.addEventListener("change", () => {
     playingSong.currentTime = timeSlider.value;
     calculateCurrentTime();
+});
+
+volumeSlider.addEventListener("change", () => {
+    playingSong.volume = (volumeSlider.value/100);
 });
 
 playingSong.addEventListener("canplaythrough", () => {
