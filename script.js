@@ -10,8 +10,12 @@ let endMinutes = 0;
 let endSeconds = 0;
 let timeSlider = document.getElementById("time-slider");
 let volumeSlider = document.getElementById("volume-slider");
+let nextSongButton = document.getElementById("play-next-song");
+let prevSongButton = document.getElementById("play-prev-song");
+let loaderButton = document.getElementById("song-loader");
 
 let audioInterval;
+let playingElement;
 
 function calculateCurrentTime() {
     currentMinutes = Math.floor(playingSong.currentTime / 60);
@@ -39,6 +43,8 @@ volumeSlider.addEventListener("change", () => {
 playingSong.addEventListener("canplaythrough", () => {
     calculateEndTime();
     timeSlider.setAttribute("max", Math.ceil(playingSong.duration));
+    loaderButton.classList.add("not-active");
+    playSong();
 })
 
 function calculateEndTime() {
@@ -51,6 +57,18 @@ function calculateEndTime() {
 }
 
 function playSong() {
+    if(playingSong.getAttribute("src") === "") return;
+    if(playingElement.getAttribute("id") == (songs.length - 1)) {
+        nextSongButton.style.cursor = "not-allowed";
+    } else {
+        nextSongButton.style.cursor = "pointer";
+    }
+    if(playingElement.getAttribute("id") == 0) {
+        prevSongButton.style.cursor = "not-allowed";
+    } else {
+        prevSongButton.style.cursor = "pointer";
+    }
+    playButton.style.cursor = "pointer";
     playingSong.play();
     playButton.classList.add("not-active");
     pauseButton.classList.remove("not-active");
@@ -65,4 +83,60 @@ function pauseSong() {
     playButton.classList.remove("not-active");
     pauseButton.classList.add("not-active");
     clearInterval(audioInterval);
+}
+
+function updateData() {
+    for(let i = 0; i < songs.length; i++) {
+        let songsTable = document.getElementById("songs-listing");
+        let prevHtml = songsTable.innerHTML;
+        let html = `<tr class="song" id="${songs[i].Id}" onClick="updatePlaySong(this)">
+                        <td>${songs[i].Name}</td>
+                        <td>${songs[i].Artist}</td>
+                        <td></td>
+                    </tr>`;
+        songsTable.innerHTML = prevHtml + html;
+    }
+}
+
+updateData();
+
+function updatePlaySong(element) {
+    playButton.classList.add("not-active");
+    pauseButton.classList.add("not-active");
+    loaderButton.classList.remove("not-active");
+    if(playingElement) {
+        playingElement.getElementsByTagName("td")[2].innerHTML = '';
+    }
+    let tds = element.getElementsByTagName("td")
+    tds[2].innerHTML = '<img id="song-gif" src="https://cdn.dribbble.com/users/104605/screenshots/2921771/untitled.gif"></img>';
+    let songId = element.getAttribute('id');
+    playingSong.setAttribute('src', songs[songId].Url);
+    currentSeconds = 0;
+    currentMinutes = 0;
+    playingElement = element;
+}
+
+function playNextSong() {
+    if(playingElement && playingElement.getAttribute("id") != (songs.length - 1)) {
+        let nextElement = playingElement.nextSibling;
+        updatePlaySong(nextElement);
+    }
+}
+
+function playPrevSong() {
+    if(playingElement && playingElement.getAttribute("id") != 0) {
+        let prevElement = playingElement.previousSibling;
+        updatePlaySong(prevElement);
+    }
+}
+
+function searchMusic(element) {
+    let searchText = element.value;
+    for(let i = 0; i < songs.length; i++) {
+        if(songs[i].Name.indexOf(searchText) !== -1 || songs[i].Artist.indexOf(searchText) !== -1) {
+            document.getElementById(i).style.display = "table-row";
+        } else {
+            document.getElementById(i).style.display = "none";
+        }
+    }
 }
