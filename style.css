@@ -68,12 +68,12 @@ body {
     text-align: center;
 }
 
-#navbar-list {
+#navbar-list, #playlist-list {
     list-style: none;
     padding: 0;
 }
 
-.navbar-items {
+.navbar-items, .playlist-items {
     height: 30px;
     cursor: pointer;
     width: 100%;
@@ -83,7 +83,13 @@ body {
     font-size: 18px;
 }
 
-.navbar-items:hover {
+.playlist-items {
+    height: 20px;
+    font-size: 16px;
+    padding-top: 5px;
+}
+
+.navbar-items:hover, .playlist-items:hover {
     background-color: rgb(54,54,58);
 }
 

@@ -16,9 +16,13 @@
                     <span id="app-name"> Pep Music</span>
                 </div>
                 <ul id="navbar-list">
-                    <li class="navbar-items"><img src="https://img.icons8.com/color/20/000000/musical-notes.png"/>Music Library</li>
-                    <li class="navbar-items"><img src="https://img.icons8.com/color/20/000000/playlist.png"/>Playlists</li>
-                    <li class="navbar-items"><img src="https://img.icons8.com/color/20/000000/filled-like.png"/>Songs you like</li>
+                    <li class="navbar-items" id="nav-0" onclick="highlight(this)"><img src="https://img.icons8.com/color/20/000000/musical-notes.png"/>Music Library</li>
+                    <li class="navbar-items" id="nav-1" onclick="highlight(this)"><img src="https://img.icons8.com/color/20/000000/playlist.png"/>Playlists <button id="add-playlist-button" onclick="showPlaylistInput()">Add</button></li>
+                    <ul id="playlist-list" style="display: none;">
+                        
+                    </ul>
+                    <input type="text" id="new-playlist-name" style="margin-left: 40px; margin-top: 10px; display: none;" placeholder="Playlist Name">
+                    <li class="navbar-items" id="nav-2" onclick="highlight(this)"><img src="https://img.icons8.com/color/20/000000/filled-like.png"/>Songs you like</li>
                 </ul>
             </div>
         </div>
@@ -29,7 +33,7 @@
             </div>
             <div id="library">
                 <div id="table">
-                    <table style="width:100%">
+                    <table id="songs-list-table" style="width:100%">
                         <thead>
                             <tr>
                                 <th>Song Name</th>

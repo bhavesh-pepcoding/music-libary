@@ -13,6 +13,11 @@ let volumeSlider = document.getElementById("volume-slider");
 let nextSongButton = document.getElementById("play-next-song");
 let prevSongButton = document.getElementById("play-prev-song");
 let loaderButton = document.getElementById("song-loader");
+let activeTab = 0;
+if(!window.localStorage.playlists)
+window.localStorage.playlists = JSON.stringify({
+    "super30": [1,2,3,4]
+});
 
 let audioInterval;
 let playingElement;
@@ -140,3 +145,47 @@ function searchMusic(element) {
         }
     }
 }
+
+function highlight(element) {
+    let navbarItems = document.getElementsByClassName("navbar-items");
+    for(let i = 0; i< navbarItems.length; i++) {
+        navbarItems[i].style.backgroundColor = null;
+    }
+    element.style.backgroundColor = "rgb(54,54,58)";
+    activeTab = element.getAttribute("id").split("-")[1];
+    if(activeTab == 1) {
+        document.getElementById("playlist-list").style.display = "block";
+    } else {
+        document.getElementById("playlist-list").style.display = "none";
+    }
+}
+
+highlight(document.getElementById("nav-0"));
+
+function showPlaylistInput() {
+    document.getElementById("new-playlist-name").style.display = " block";
+    document.getElementById("new-playlist-name").focus();
+}
+
+function generatePlaylist() {
+    let html = "";
+    for(let i = 0; i < Object.keys(JSON.parse(window.localStorage.playlists)).length; i++) {
+        html += `<li class="playlist-items">${Object.keys(JSON.parse(window.localStorage.playlists))[i]}</li>`
+    }
+    document.getElementById("playlist-list").innerHTML = html;
+}
+
+generatePlaylist();
+
+document.getElementById("new-playlist-name").addEventListener("keyup", function(event) {
+    if(event.keyCode === 13 && event.target.value != "") {
+        let playlists = JSON.parse(window.localStorage.playlists);
+        playlists[event.target.value] = [];
+        window.localStorage.playlists = JSON.stringify(playlists);
+        event.target.value = "";
+        event.target.style.display = "none";
+        generatePlaylist();
+    } else if(event.keyCode === 13 && event.target.value == "") {
+        event.target.style.display = "none";
+    }
+})
